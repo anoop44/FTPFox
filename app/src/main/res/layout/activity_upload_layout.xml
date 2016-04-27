@@ -4,23 +4,16 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ftp_server_file_list_recycler"
+        android:id="@+id/ftp_upload_file_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/select_file_floating_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/upload_floating_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/upload_floating_btn_margin"/>
-
+        android:layout_margin="@dimen/upload_floating_btn_margin" />
 
 </RelativeLayout>

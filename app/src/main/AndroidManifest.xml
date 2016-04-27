@@ -28,6 +28,10 @@
             android:name=".activity.FileListActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.FileUploadActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

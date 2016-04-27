@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 
 import org.apache.commons.net.ftp.FTPFile;
 
+import co.cyware.ftpclient.activity.FileUploadActivity;
 import co.cyware.ftpclient.adapter.RemoteFileListAdapter;
 import co.cyware.ftpclient.interactor.RemoteFileListInteractor;
 import co.cyware.ftpclient.view.RemoteFileListView;
@@ -86,6 +87,10 @@ public class RemoteFileListPresenter extends BasePresenter<RemoteFileListView> {
             mDownloadProgressDialog.dismiss();
             mDownloadProgressDialog = null;
         }
+    }
+
+    public void onClickUploadBtn() {
+        showNextScreen(FileUploadActivity.class, null);
     }
 
     public interface OnRemoteFileSelectCallback {
