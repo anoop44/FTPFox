@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FTPClient</string>
+    <string name="login">Login</string>
 </resources>
