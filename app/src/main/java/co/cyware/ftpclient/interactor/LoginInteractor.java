@@ -73,6 +73,8 @@ public class LoginInteractor extends BaseInteractor<LoginPresenter> {
             public void finish() {
                 if (!TextUtils.isEmpty(errorMessage)) {
                     getPresenter().showFtpErrorMessage(errorMessage);
+                } else {
+                    getPresenter().onConnectionSuccess();
                 }
             }
         };

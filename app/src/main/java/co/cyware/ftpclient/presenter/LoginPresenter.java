@@ -2,6 +2,7 @@ package co.cyware.ftpclient.presenter;
 
 import android.text.TextUtils;
 
+import co.cyware.ftpclient.activity.FileListActivity;
 import co.cyware.ftpclient.interactor.LoginInteractor;
 import co.cyware.ftpclient.view.LoginView;
 
@@ -30,5 +31,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void showFtpErrorMessage(String errorMessage) {
         showError(errorMessage);
+    }
+
+    public void onConnectionSuccess(){
+        showNextScreen(FileListActivity.class, null);
     }
 }

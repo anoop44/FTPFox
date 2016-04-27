@@ -13,7 +13,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:text="52.26.67.76" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -26,7 +27,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:text="eauusers" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -40,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:text="YTNhOTNmYTAwOTljYmFmMDlhMTJlODVl"/>
+            android:text="YTNhOTNmYTAwOTljYmFmMDlhMTJlODVl" />
 
     </android.support.design.widget.TextInputLayout>
 

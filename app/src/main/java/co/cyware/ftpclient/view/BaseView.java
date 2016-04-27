@@ -9,4 +9,8 @@ public interface BaseView {
 
     Context getContext();
 
+    void showLoading();
+
+    void hideLoading();
+
 }
