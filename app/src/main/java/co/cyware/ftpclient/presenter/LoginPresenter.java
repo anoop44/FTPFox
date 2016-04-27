@@ -22,9 +22,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void onLogin(String serverUrl, String userName, String password) {
         String errorMessage = mLoginInteractor.validateLoginInfo(serverUrl, userName, password);
         if (TextUtils.isEmpty(errorMessage)) {
-
+            mLoginInteractor.connectToFtpServer(serverUrl, userName, password);
         } else {
             showError(errorMessage);
         }
+    }
+
+    public void showFtpErrorMessage(String errorMessage) {
+        showError(errorMessage);
     }
 }
