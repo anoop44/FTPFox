@@ -75,8 +75,23 @@ public class UploadFilePresenter extends BasePresenter<UploadFileView> {
 
     private FtpUploadCallback mFtpUploadCallback = new FtpUploadCallback() {
         @Override
-        public void onUploadProgress(String id, long uploaded) {
+        public void onUploadProgress(String id, long uploaded, long total) {
             updateList(id, uploaded);
+        }
+
+        @Override
+        public void onUploadComplete(String id) {
+            updateList(null, 0);
+        }
+
+        @Override
+        public void onUploadError(String id) {
+            updateList(null, 0);
+        }
+
+        @Override
+        public void onFileRemoved(String id) {
+            updateList(null, 0);
         }
     };
 

@@ -43,6 +43,9 @@ public class FtpFileQueue {
     }
 
     private void uploadNext() {
+
+        mFtpUploadTask = null;
+
         if (mUploadList.size() > 0) {
             for (FtpUploadItem ftpUploadItem : mUploadList) {
                 if (!ftpUploadItem.isDownloaded()) {
@@ -93,13 +96,29 @@ public class FtpFileQueue {
                 }
             }
 
+            if (mFtpUploadCallbacks.size() > 0) {
+
+                for (FtpUploadCallback ftpUploadCallback : mFtpUploadCallbacks) {
+                    ftpUploadCallback.onUploadComplete(getCurrentFileId());
+                }
+            }
+
             uploadNext();
         }
 
         @Override
         public void onError(FtpUploadItem ftpUploadItem) {
+
             removeFromQueue(ftpUploadItem);
             uploadNext();
+
+            if (mFtpUploadCallbacks.size() > 0) {
+
+                for (FtpUploadCallback ftpUploadCallback : mFtpUploadCallbacks) {
+                    ftpUploadCallback.onUploadError(null);
+                }
+            }
+
         }
     };
 
@@ -119,7 +138,7 @@ public class FtpFileQueue {
                 if (mFtpUploadCallbacks.size() > 0) {
 
                     for (FtpUploadCallback ftpUploadCallback : mFtpUploadCallbacks) {
-                        ftpUploadCallback.onUploadProgress(getCurrentFileId(), totalBytesTransferred);
+                        ftpUploadCallback.onUploadProgress(getCurrentFileId(), totalBytesTransferred, streamSize);
                     }
                 }
 

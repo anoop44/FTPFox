@@ -8,4 +8,6 @@ import android.support.v7.widget.RecyclerView;
 public interface RemoteFileListView extends BaseView {
 
     void setRemoteFileListAdapter(RecyclerView.Adapter recyclerViewAdapter);
+
+    void updateUpdateProgress(int progress);
 }

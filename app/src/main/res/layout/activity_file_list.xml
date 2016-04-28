@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/upload_file_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/ftp_file_upload_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:max="100"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/file_upload_list_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ftp_server_file_list_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/upload_file_info_container" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -16,13 +38,13 @@
         android:layout_centerInParent="true" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/upload_floating_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/upload_floating_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/upload_icon"
-        android:layout_margin="@dimen/upload_floating_btn_margin"/>
+        android:layout_margin="@dimen/upload_floating_btn_margin"
+        android:src="@drawable/upload_icon" />
 
 
 </RelativeLayout>

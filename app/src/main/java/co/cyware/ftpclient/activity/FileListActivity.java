@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import co.cyware.ftpclient.R;
 import co.cyware.ftpclient.presenter.RemoteFileListPresenter;
@@ -22,6 +23,7 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
     //Views
     private RecyclerView mRemoteFileListRecycler;
     private FloatingActionButton mFileUplaodFloatingActionBtn;
+    private ProgressBar mFileUploadProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
         mRemoteFileListRecycler = (RecyclerView) findViewById(R.id.ftp_server_file_list_recycler);
         mRemoteFileListRecycler.setHasFixedSize(true);
         mRemoteFileListRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        mFileUploadProgressBar = (ProgressBar) findViewById(R.id.ftp_file_upload_progress);
 
         mFileUplaodFloatingActionBtn = (FloatingActionButton) findViewById(R.id.upload_floating_btn);
         mFileUplaodFloatingActionBtn.setOnClickListener(this);
@@ -46,10 +50,27 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
     }
 
     @Override
+    public void updateUpdateProgress(final int progress) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mFileUploadProgressBar.setProgress(progress);
+            }
+        });
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
-        mRemoteFileListPresenter.refreshRemoteFileList();
+        mRemoteFileListPresenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mRemoteFileListPresenter.onPause();
     }
 
     @Override

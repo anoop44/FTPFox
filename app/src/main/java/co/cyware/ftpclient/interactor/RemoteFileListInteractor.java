@@ -7,6 +7,7 @@ import java.io.File;
 import co.cyware.ftpclient.presenter.RemoteFileListPresenter;
 import co.cyware.ftpclient.service.async.runner.AsyncJob;
 import co.cyware.ftpclient.service.async.runner.CancellableAsyncRunner;
+import co.cyware.ftpclient.service.ftp.FtpUploadCallback;
 import co.cyware.ftpclient.utils.FileUtils;
 
 /**
@@ -15,6 +16,8 @@ import co.cyware.ftpclient.utils.FileUtils;
 public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPresenter> {
 
     private static final String DOWNLOAD_FILE_PATH = "%s/%s";
+
+    private CancellableAsyncRunner mGetFilesAsyncJob;
 
     public RemoteFileListInteractor(RemoteFileListPresenter presenter) {
         super(presenter);
@@ -41,8 +44,17 @@ public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPrese
             }
         };
 
-        CancellableAsyncRunner getFiles = getServices().getAsyncJobServices().runAsyncJob(getRemoteFilesAsync);
+        mGetFilesAsyncJob = getServices().getAsyncJobServices().runAsyncJob(getRemoteFilesAsync);
     }
+
+    public void registerCallback(FtpUploadCallback ftpUploadCallback) {
+        getServices().getFTPServices().registerFtpUploadCallback(ftpUploadCallback);
+    }
+
+    public void unregisterCallback(FtpUploadCallback ftpUploadCallback) {
+        getServices().getFTPServices().unregisterFtpUploadCallback(ftpUploadCallback);
+    }
+
 
     public boolean existLocalFile(FTPFile ftpFile) {
         File localFilePath = new File(FileUtils.getDownloadPath(), String.format(DOWNLOAD_FILE_PATH, ftpFile.getUser(), ftpFile.getName()));
@@ -68,5 +80,11 @@ public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPrese
         };
 
         CancellableAsyncRunner cancellableDownloadTask = getServices().getAsyncJobServices().runAsyncJob(downloadAsyncJob);
+    }
+
+    public void cancelPendingRequest() {
+        if (null != mGetFilesAsyncJob) {
+            mGetFilesAsyncJob.cancel();
+        }
     }
 }
