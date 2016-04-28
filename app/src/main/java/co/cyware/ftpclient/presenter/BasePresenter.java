@@ -16,7 +16,6 @@ import co.cyware.ftpclient.view.BaseView;
 public class BasePresenter<VIEW extends BaseView> {
 
     private static final String ACTIVITY_BUNDLE_EXTRA = "ACTIVITY_BUNDLE_EXTRA";
-    public static final String KEY_MOBILE_NUMBER = "KEY_MOBILE_NUMBER";
 
     private Context mContext;
 
@@ -80,7 +79,7 @@ public class BasePresenter<VIEW extends BaseView> {
     /**
      * Method to start an intent to deliver result back
      *
-     * @param intent       {@link Intent} - to be started for result
+     * @param intent      {@link Intent} - to be started for result
      * @param requestCode unique code to identify a intent, which started for result
      */
     protected void startIntentForResult(Intent intent, int requestCode) {
@@ -111,4 +110,5 @@ public class BasePresenter<VIEW extends BaseView> {
     protected void showError(String errorMsgResId) {
         Toast.makeText(mContext, errorMsgResId, Toast.LENGTH_LONG).show();
     }
+
 }

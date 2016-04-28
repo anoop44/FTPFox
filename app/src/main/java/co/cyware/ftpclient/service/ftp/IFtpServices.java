@@ -16,4 +16,12 @@ public interface IFtpServices {
     FTPFile[] getRemoteFiles();
 
     void downloadRemoteFile(FTPFile ftpFile, File localFile);
+
+    void registerFtpUploadCallback(FtpUploadCallback ftpUploadCallback);
+
+    void unregisterFtpUploadCallback(FtpUploadCallback ftpUploadCallback);
+
+    void addToQueue(FtpUploadItem ftpUploadItem);
+
+    void removeFromQueue(FtpUploadItem ftpUploadItem);
 }

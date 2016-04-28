@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anoop S S on 27/4/16.
@@ -18,8 +20,15 @@ public class FtpServicesImpl implements IFtpServices {
 
     private FTPClient mFtpClient;
 
+    private List<FtpUploadCallback> mFtpUploadCallbacks;
+
+    private List<FtpUploadItem> mFtpUploadItems;
+
     public FtpServicesImpl() {
         mFtpClient = new FTPClient();
+
+        mFtpUploadCallbacks = new ArrayList<>();
+        mFtpUploadItems = new ArrayList<>();
     }
 
     @Override
@@ -101,4 +110,25 @@ public class FtpServicesImpl implements IFtpServices {
         }
 
     }
+
+    @Override
+    public void registerFtpUploadCallback(FtpUploadCallback ftpUploadCallback) {
+        mFtpUploadCallbacks.add(ftpUploadCallback);
+    }
+
+    @Override
+    public void unregisterFtpUploadCallback(FtpUploadCallback ftpUploadCallback) {
+        mFtpUploadCallbacks.remove(ftpUploadCallback);
+    }
+
+    @Override
+    public void addToQueue(FtpUploadItem ftpUploadItem) {
+        mFtpUploadItems.add(ftpUploadItem);
+    }
+
+    @Override
+    public void removeFromQueue(FtpUploadItem ftpUploadItem) {
+        mFtpUploadItems.remove(ftpUploadItem);
+    }
+
 }

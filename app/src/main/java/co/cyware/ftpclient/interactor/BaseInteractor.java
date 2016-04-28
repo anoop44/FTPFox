@@ -45,7 +45,7 @@ public class BaseInteractor<PRESENTER extends BasePresenter> {
     /**
      * Method that converts an internal {@link Exception} to displayable message for API errors
      *
-     * @param throwable - value obtained from network callback
+     * @param throwable - value obtained from network FtpUploadCallback
      * @return {@link String} message that is to be displayed to the user
      */
     protected String getErrorMessage(Throwable throwable) {
