@@ -2,4 +2,5 @@
     <string name="app_name">FTPClient</string>
     <string name="login">Login</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,8 +1,12 @@
 package co.cyware.ftpclient.service.ftp;
 
+import android.util.Log;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.apache.commons.net.io.CopyStreamEvent;
+import org.apache.commons.net.io.CopyStreamListener;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -20,15 +24,14 @@ public class FtpServicesImpl implements IFtpServices {
 
     private FTPClient mFtpClient;
 
+    private FtpFileQueue mFtpFileQueue;
+
     private List<FtpUploadCallback> mFtpUploadCallbacks;
 
-    private List<FtpUploadItem> mFtpUploadItems;
-
     public FtpServicesImpl() {
-        mFtpClient = new FTPClient();
 
+        mFtpClient = new FTPClient();
         mFtpUploadCallbacks = new ArrayList<>();
-        mFtpUploadItems = new ArrayList<>();
     }
 
     @Override
@@ -128,12 +131,22 @@ public class FtpServicesImpl implements IFtpServices {
 
     @Override
     public void addToQueue(FtpUploadItem ftpUploadItem) {
-        mFtpUploadItems.add(ftpUploadItem);
+        if (null == mFtpFileQueue) {
+            mFtpFileQueue = new FtpFileQueue(mFtpClient, mFtpUploadCallbacks);
+        }
+
+        mFtpFileQueue.addToQueue(ftpUploadItem);
     }
 
     @Override
     public void removeFromQueue(FtpUploadItem ftpUploadItem) {
-        mFtpUploadItems.remove(ftpUploadItem);
+        mFtpFileQueue.removeFromQueue(ftpUploadItem);
     }
+
+    @Override
+    public List<FtpUploadItem> getUploadingQueue() {
+        return mFtpFileQueue == null ? null : mFtpFileQueue.getUploadQueue();
+    }
+
 
 }

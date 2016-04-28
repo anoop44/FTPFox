@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/upload_floating_btn_margin" />
+        android:layout_margin="@dimen/upload_floating_btn_margin"
+        android:src="@drawable/select_file_icon" />
 
 </RelativeLayout>
