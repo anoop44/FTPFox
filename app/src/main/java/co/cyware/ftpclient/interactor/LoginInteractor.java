@@ -19,6 +19,10 @@ public class LoginInteractor extends BaseInteractor<LoginPresenter> {
     private static final String UNABLE_TO_CONNECT_TO_THE_SERVER = "Unable to connect to the FTP server";
     private static final String UNABLE_TO_LOGIN_TO_THE_SERVER = "Unable to login to the FTP server";
 
+    private static final String KEY_FTP_SERVER = "KEY_FTP_SERVER";
+    private static final String KEY_FTP_USERNAME = "KEY_FTP_USERNAME";
+    private static final String KEY_FTP_PASSWORD = "KEY_FTP_PASSWORD";
+
     private CancellableAsyncRunner mConnectionRunner;
 
     public LoginInteractor(LoginPresenter presenter) {
@@ -74,12 +78,18 @@ public class LoginInteractor extends BaseInteractor<LoginPresenter> {
                 if (!TextUtils.isEmpty(errorMessage)) {
                     getPresenter().showFtpErrorMessage(errorMessage);
                 } else {
-                    getPresenter().onConnectionSuccess();
+                    getPresenter().onConnectionSuccess(serverUrl, userName, password);
                 }
             }
         };
 
         mConnectionRunner = getServices().getAsyncJobServices().runAsyncJob(asyncFtpConnection);
 
+    }
+
+    public void saveLoginInfo(String serverUrl, String userName, String password) {
+        getServices().getPersistenceServices().saveString(KEY_FTP_SERVER, serverUrl);
+        getServices().getPersistenceServices().saveString(KEY_FTP_USERNAME, userName);
+        getServices().getPersistenceServices().saveString(KEY_FTP_PASSWORD, password);
     }
 }

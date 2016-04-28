@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 
 import co.cyware.ftpclient.R;
 import co.cyware.ftpclient.presenter.LoginPresenter;
@@ -15,6 +16,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private TextInputLayout mFtpServerInputLayout;
     private TextInputLayout mFtpUserNameInputLayout;
     private TextInputLayout mFtpPasswordInputLayout;
+    private CheckBox mFtpLoginRemember;
 
     //Presenter
     private LoginPresenter mLoginPresenter;
@@ -28,10 +30,17 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mFtpUserNameInputLayout = (TextInputLayout) findViewById(R.id.ftp_user_name);
         mFtpPasswordInputLayout = (TextInputLayout) findViewById(R.id.ftp_user_password);
 
+        mFtpLoginRemember = (CheckBox) findViewById(R.id.ftp_login_remember);
+
         findViewById(R.id.login).setOnClickListener(this);
 
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
+    }
+
+    @Override
+    public boolean isSaveChecked() {
+        return mFtpLoginRemember.isChecked();
     }
 
     @Override

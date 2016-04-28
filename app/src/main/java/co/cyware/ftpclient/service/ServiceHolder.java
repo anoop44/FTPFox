@@ -6,6 +6,8 @@ import co.cyware.ftpclient.service.async.AsyncJobServicesImpl;
 import co.cyware.ftpclient.service.async.IAsyncJobServices;
 import co.cyware.ftpclient.service.ftp.FtpServicesImpl;
 import co.cyware.ftpclient.service.ftp.IFtpServices;
+import co.cyware.ftpclient.service.persistence.IPersistenceService;
+import co.cyware.ftpclient.service.persistence.PersistenceImpl;
 
 /**
  * Created by Anoop S S on 7/4/16.
@@ -23,6 +25,9 @@ public class ServiceHolder {
 
     //FTPServices instance
     IFtpServices mFtpServices;
+
+    //Persistence instance
+    IPersistenceService mPersistenceServices;
 
     /**
      * @param context
@@ -47,6 +52,7 @@ public class ServiceHolder {
     private ServiceHolder(Context context) {
         mAsyncJobServices = AsyncJobServicesImpl.getInstance();
         mFtpServices = new FtpServicesImpl();
+        mPersistenceServices = new PersistenceImpl(context);
     }
 
     /**
@@ -61,6 +67,13 @@ public class ServiceHolder {
      */
     public IFtpServices getFTPServices(){
         return mFtpServices;
+    }
+
+    /**
+     * @return instance of the {@link IPersistenceService} for interactors to carryout storage operations
+     */
+    public IPersistenceService getPersistenceServices(){
+        return mPersistenceServices;
     }
 
 }

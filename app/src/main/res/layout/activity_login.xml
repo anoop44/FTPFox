@@ -46,11 +46,19 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/ftp_login_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ftp_user_password"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ftp_user_password"
+        android:layout_below="@+id/ftp_login_remember"
         android:layout_centerHorizontal="true"
         android:text="@string/login" />
 
