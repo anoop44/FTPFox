@@ -22,6 +22,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         super.onAttached();
 
         mLoginInteractor = new LoginInteractor(this);
+
+        if (mLoginInteractor.isAlreadyConnected()) {
+            showNextScreen(FileListActivity.class, null);
+        } else if(mLoginInteractor.isAutoLoginPresent()){
+            showLoginProgress(LOGGING_IN);
+            mLoginInteractor.autoLogin();
+        }
     }
 
     public void onLogin(String serverUrl, String userName, String password) {

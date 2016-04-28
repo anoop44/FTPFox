@@ -13,6 +13,8 @@ public interface IFtpServices {
 
     boolean login(String userName, String password);
 
+    boolean isConnected();
+
     FTPFile[] getRemoteFiles();
 
     void downloadRemoteFile(FTPFile ftpFile, File localFile);

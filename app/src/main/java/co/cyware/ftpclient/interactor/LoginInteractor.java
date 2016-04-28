@@ -92,4 +92,18 @@ public class LoginInteractor extends BaseInteractor<LoginPresenter> {
         getServices().getPersistenceServices().saveString(KEY_FTP_USERNAME, userName);
         getServices().getPersistenceServices().saveString(KEY_FTP_PASSWORD, password);
     }
+
+    public boolean isAlreadyConnected() {
+        return getServices().getFTPServices().isConnected();
+    }
+
+    public boolean isAutoLoginPresent() {
+        return getServices().getPersistenceServices().getString(KEY_FTP_USERNAME) != null && getServices().getPersistenceServices().getString(KEY_FTP_PASSWORD) != null;
+    }
+
+    public void autoLogin() {
+        connectToFtpServer(getServices().getPersistenceServices().getString(KEY_FTP_SERVER),
+                getServices().getPersistenceServices().getString(KEY_FTP_USERNAME),
+                getServices().getPersistenceServices().getString(KEY_FTP_PASSWORD));
+    }
 }

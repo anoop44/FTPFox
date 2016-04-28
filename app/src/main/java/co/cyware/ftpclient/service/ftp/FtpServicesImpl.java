@@ -59,6 +59,11 @@ public class FtpServicesImpl implements IFtpServices {
     }
 
     @Override
+    public boolean isConnected() {
+        return null != mFtpClient && mFtpClient.isConnected();
+    }
+
+    @Override
     public FTPFile[] getRemoteFiles() {
 
         FTPFile[] files = null;
