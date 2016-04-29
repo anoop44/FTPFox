@@ -49,6 +49,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void onConnectionSuccess(String serverUrl, String userName, String password) {
 
         hideLoginProgress();
+
         if (getView().isSaveChecked()) {
             mLoginInteractor.saveLoginInfo(serverUrl, userName, password);
         }
@@ -70,5 +71,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             mLoginProgressDialog.dismiss();
             mLoginProgressDialog = null;
         }
+    }
+
+    public void onPause() {
+        hideLoginProgress();
+        mLoginInteractor.cancelPendingCallbacks();
     }
 }

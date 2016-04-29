@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="upload_floating_btn_margin">20dp</dimen>
+    <dimen name="card_view_list_item_content_padding">10dp</dimen>
+    <dimen name="card_view_list_item_card_margin">5dp</dimen>
+    <dimen name="ftp_file_name_text_size">16sp</dimen>
 </resources>

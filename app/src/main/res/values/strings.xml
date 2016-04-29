@@ -3,4 +3,7 @@
     <string name="login">Login</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="ftp_server">FTP Server</string>
+    <string name="username">User name</string>
+    <string name="password">Password</string>
 </resources>

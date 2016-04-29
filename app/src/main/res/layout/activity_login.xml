@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:hint="@string/ftp_server"
             android:text="52.26.67.76" />
 
     </android.support.design.widget.TextInputLayout>
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:hint="@string/username"
             android:text="eauusers" />
 
     </android.support.design.widget.TextInputLayout>
@@ -42,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:hint="@string/password"
             android:text="YTNhOTNmYTAwOTljYmFmMDlhMTJlODVl" />
 
     </android.support.design.widget.TextInputLayout>

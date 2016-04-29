@@ -72,6 +72,10 @@ public class FtpFileQueue {
         return mFtpUploadTask.getFileId();
     }
 
+    private long getCurrentFileSize() {
+        return mFtpUploadTask.getFileSize();
+    }
+
     public List<FtpUploadItem> getUploadQueue() {
         return mUploadList;
     }
@@ -126,6 +130,7 @@ public class FtpFileQueue {
 
         @Override
         public void bytesTransferred(CopyStreamEvent event) {
+            event.toString();
         }
 
         @Override
@@ -138,7 +143,7 @@ public class FtpFileQueue {
                 if (mFtpUploadCallbacks.size() > 0) {
 
                     for (FtpUploadCallback ftpUploadCallback : mFtpUploadCallbacks) {
-                        ftpUploadCallback.onUploadProgress(getCurrentFileId(), totalBytesTransferred, streamSize);
+                        ftpUploadCallback.onUploadProgress(getCurrentFileId(), totalBytesTransferred, getCurrentFileSize());
                     }
                 }
 

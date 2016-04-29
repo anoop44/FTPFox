@@ -18,6 +18,7 @@ public class UploadFilePresenter extends BasePresenter<UploadFileView> {
 
     private static final String MIME_TYPE_ALL_FILES = "file/*";
     private static final int FILE_CHOOSER_REQUEST_CODE = 1001;
+    private static final int RESULT_OK = -1;
 
     private UploadFileInteractor mUploadFileInteractor;
 
@@ -50,11 +51,14 @@ public class UploadFilePresenter extends BasePresenter<UploadFileView> {
 
     public void onIntentResult(int requestCode, int resultCode, Intent data) {
 
-        switch (requestCode) {
+        if (resultCode == RESULT_OK) {
 
-            case FILE_CHOOSER_REQUEST_CODE:
-                mUploadFileInteractor.uploadFile(data.getData());
-                break;
+            switch (requestCode) {
+
+                case FILE_CHOOSER_REQUEST_CODE:
+                    mUploadFileInteractor.uploadFile(data.getData());
+                    break;
+            }
         }
     }
 

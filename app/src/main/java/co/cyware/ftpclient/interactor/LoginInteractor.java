@@ -106,4 +106,10 @@ public class LoginInteractor extends BaseInteractor<LoginPresenter> {
                 getServices().getPersistenceServices().getString(KEY_FTP_USERNAME),
                 getServices().getPersistenceServices().getString(KEY_FTP_PASSWORD));
     }
+
+    public void cancelPendingCallbacks() {
+        if (mConnectionRunner != null) {
+            mConnectionRunner.cancel();
+        }
+    }
 }

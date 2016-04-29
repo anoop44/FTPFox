@@ -44,6 +44,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mLoginPresenter.onPause();
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login:

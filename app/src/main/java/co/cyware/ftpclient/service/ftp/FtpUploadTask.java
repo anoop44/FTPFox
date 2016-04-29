@@ -61,4 +61,8 @@ public class FtpUploadTask extends AsyncTask<Void, Void, Boolean> {
     public String getFileId() {
         return mFtpUploadItem.getId();
     }
+
+    public long getFileSize() {
+        return mFtpUploadItem.getTotalSize();
+    }
 }
