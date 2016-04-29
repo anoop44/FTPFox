@@ -1,11 +1,19 @@
 package co.cyware.ftpclient.presenter;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import org.apache.commons.net.ftp.FTPFile;
 
+import java.io.File;
+
 import co.cyware.ftpclient.activity.FileUploadActivity;
 import co.cyware.ftpclient.adapter.RemoteFileListAdapter;
+import co.cyware.ftpclient.interactor.FTPInteractor;
 import co.cyware.ftpclient.interactor.RemoteFileListInteractor;
 import co.cyware.ftpclient.service.ftp.FtpUploadCallback;
 import co.cyware.ftpclient.view.RemoteFileListView;
@@ -24,6 +32,11 @@ public class RemoteFileListPresenter extends FTPPresenter<RemoteFileListView> {
     private RemoteFileListAdapter mRemoteFileListAdapter = null;
 
     private ProgressDialog mDownloadProgressDialog;
+
+    @Override
+    protected FTPInteractor getInteractor() {
+        return mRemoteFileListInteracor;
+    }
 
     @Override
     protected void onAttached() {
@@ -68,6 +81,38 @@ public class RemoteFileListPresenter extends FTPPresenter<RemoteFileListView> {
 
     public void showLocalFile(FTPFile localFile) {
         hideDownloadProgress();
+
+        File file = mRemoteFileListInteracor.getLocalFile(localFile);
+
+        MimeTypeMap myMime = MimeTypeMap.getSingleton();
+        Intent newIntent = new Intent(Intent.ACTION_VIEW);
+        String mimeType = myMime.getMimeTypeFromExtension(fileExt(file.getAbsolutePath()));
+        newIntent.setDataAndType(Uri.fromFile(file), mimeType);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            getContext().startActivity(newIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getContext(), "No handler for this type of file.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private String fileExt(String url) {
+        if (url.indexOf("?") > -1) {
+            url = url.substring(0, url.indexOf("?"));
+        }
+        if (url.lastIndexOf(".") == -1) {
+            return null;
+        } else {
+            String ext = url.substring(url.lastIndexOf(".") + 1);
+            if (ext.indexOf("%") > -1) {
+                ext = ext.substring(0, ext.indexOf("%"));
+            }
+            if (ext.indexOf("/") > -1) {
+                ext = ext.substring(0, ext.indexOf("/"));
+            }
+            return ext.toLowerCase();
+
+        }
     }
 
     public void showDownloadProgress() {
@@ -100,9 +145,9 @@ public class RemoteFileListPresenter extends FTPPresenter<RemoteFileListView> {
 
     public void onResume() {
 
-        getView().showLoading();
+        super.onResume();
 
-        getView().showServerName(mRemoteFileListInteracor.getServerName());
+        getView().showLoading();
 
         mRemoteFileListInteracor.getRemoteFileList();
 

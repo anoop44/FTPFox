@@ -98,23 +98,10 @@ public class FtpServicesImpl implements IFtpServices {
                 localFile.createNewFile();
             }
 
-            InputStream remoteFileInputStream = mFtpClient.retrieveFileStream(ftpFile.getName());
-            BufferedInputStream inputStreamReader = new BufferedInputStream(remoteFileInputStream);
             FileOutputStream fileOutputStream = new FileOutputStream(localFile);
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream, 1024);
 
+            mFtpClient.retrieveFile(ftpFile.getName(), fileOutputStream);
 
-            byte[] data = new byte[1024];
-            int delta = 0;
-
-            while ((delta = inputStreamReader.read(data, 0, 1024)) >= 0) {
-                bufferedOutputStream.write(data, 0, delta);
-            }
-
-            bufferedOutputStream.flush();
-
-            bufferedOutputStream.close();
-            remoteFileInputStream.close();
             fileOutputStream.close();
 
         } catch (IOException e) {

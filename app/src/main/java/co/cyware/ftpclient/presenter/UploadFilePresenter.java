@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.cyware.ftpclient.adapter.UploadingListAdapter;
+import co.cyware.ftpclient.interactor.FTPInteractor;
 import co.cyware.ftpclient.interactor.UploadFileInteractor;
 import co.cyware.ftpclient.service.ftp.FtpUploadCallback;
 import co.cyware.ftpclient.view.UploadFileView;
@@ -25,6 +26,11 @@ public class UploadFilePresenter extends FTPPresenter<UploadFileView> {
     private UploadingListAdapter mUplaodingFileListAdapter;
 
     @Override
+    protected FTPInteractor getInteractor() {
+        return mUploadFileInteractor;
+    }
+
+    @Override
     protected void onAttached() {
         mUploadFileInteractor = new UploadFileInteractor(this);
 
@@ -35,6 +41,8 @@ public class UploadFilePresenter extends FTPPresenter<UploadFileView> {
     }
 
     public void onResume() {
+        super.onResume();
+
         mUploadFileInteractor.registerCallback(mFtpUploadCallback);
         updateList();
     }

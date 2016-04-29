@@ -51,13 +51,13 @@ public class RemoteFileListInteractor extends FTPInteractor<RemoteFileListPresen
 
 
     public boolean existLocalFile(FTPFile ftpFile) {
-        File localFilePath = new File(FileUtils.getDownloadPath(), String.format(DOWNLOAD_FILE_PATH, ftpFile.getUser(), ftpFile.getName()));
+        File localFilePath = getLocalFile(ftpFile);
         return localFilePath.exists() && ftpFile.getSize() == localFilePath.length();
     }
 
     public void downloadFile(final FTPFile ftpFile) {
 
-        final File localFile = new File(FileUtils.getDownloadPath(), String.format(DOWNLOAD_FILE_PATH, ftpFile.getUser(), ftpFile.getName()));
+        final File localFile = getLocalFile(ftpFile);
 
         getPresenter().showDownloadProgress();
         AsyncJob downloadAsyncJob = new AsyncJob() {
@@ -74,6 +74,10 @@ public class RemoteFileListInteractor extends FTPInteractor<RemoteFileListPresen
         };
 
         CancellableAsyncRunner cancellableDownloadTask = getServices().getAsyncJobServices().runAsyncJob(downloadAsyncJob);
+    }
+
+    public File getLocalFile(FTPFile ftpFile){
+        return new File(FileUtils.getDownloadPath(), String.format(DOWNLOAD_FILE_PATH, ftpFile.getUser(), ftpFile.getName()));
     }
 
     public void cancelPendingRequest() {
