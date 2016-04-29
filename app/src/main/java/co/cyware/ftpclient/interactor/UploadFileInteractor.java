@@ -57,4 +57,8 @@ public class UploadFileInteractor extends BaseInteractor<UploadFilePresenter> {
         }
         return result;
     }
+
+    public void cancelUploading(FtpUploadItem ftpUploadItem) {
+        getServices().getFTPServices().removeFromQueue(ftpUploadItem);
+    }
 }

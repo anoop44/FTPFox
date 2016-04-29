@@ -22,6 +22,7 @@
             android:id="@+id/uploading_file_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/uploading_file_cancel_btn"
             android:textColor="@android:color/black" />
 

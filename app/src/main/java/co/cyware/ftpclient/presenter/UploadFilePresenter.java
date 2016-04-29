@@ -28,7 +28,7 @@ public class UploadFilePresenter extends BasePresenter<UploadFileView> {
     protected void onAttached() {
         mUploadFileInteractor = new UploadFileInteractor(this);
 
-        mUplaodingFileListAdapter = new UploadingListAdapter();
+        mUplaodingFileListAdapter = new UploadingListAdapter(mOnCancelUploadingFileListener);
 
         getView().setUploadingListAdapter(mUplaodingFileListAdapter);
 
@@ -98,5 +98,16 @@ public class UploadFilePresenter extends BasePresenter<UploadFileView> {
             updateList(null, 0);
         }
     };
+
+    private OnCancelUploadingFileListener mOnCancelUploadingFileListener = new OnCancelUploadingFileListener() {
+        @Override
+        public void onCancelFileAtPosition(int position) {
+            mUploadFileInteractor.cancelUploading(mUplaodingFileListAdapter.getItemAtPos(position));
+        }
+    };
+
+    public interface OnCancelUploadingFileListener {
+        void onCancelFileAtPosition(int position);
+    }
 
 }

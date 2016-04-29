@@ -39,7 +39,23 @@ public class FtpFileQueue {
     }
 
     public void removeFromQueue(FtpUploadItem ftpUploadItem) {
-        mUploadList.remove(ftpUploadItem);
+        if (null != mFtpUploadTask) {
+            if (mFtpUploadTask.getUploadingFile().equals(ftpUploadItem)) {
+                mFtpUploadTask.cancel(true);
+                mUploadList.remove(ftpUploadItem);
+                uploadNext();
+            } else {
+                mUploadList.remove(ftpUploadItem);
+            }
+        }
+
+        if (mFtpUploadCallbacks.size() > 0) {
+
+            for (FtpUploadCallback ftpUploadCallback : mFtpUploadCallbacks) {
+                ftpUploadCallback.onFileRemoved(ftpUploadItem.getId());
+            }
+        }
+
     }
 
     private void uploadNext() {

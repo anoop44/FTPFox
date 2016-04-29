@@ -61,4 +61,20 @@ public class FtpUploadItem implements Serializable {
     public void setDownloaded(boolean downloaded) {
         isDownloaded = downloaded;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof FtpUploadItem)) {
+            return false;
+        }
+
+        FtpUploadItem ftpUploadItem = (FtpUploadItem) object;
+
+        return ftpUploadItem.getId().equals(getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().length();
+    }
 }

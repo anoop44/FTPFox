@@ -11,17 +11,24 @@ import android.widget.TextView;
 import java.util.List;
 
 import co.cyware.ftpclient.R;
+import co.cyware.ftpclient.presenter.UploadFilePresenter;
 import co.cyware.ftpclient.service.ftp.FtpUploadItem;
 
 /**
  * Created by Anoop S S on 28/4/16.
  */
-public class UploadingListAdapter extends RecyclerView.Adapter<UploadingListAdapter.UploadingListItemHolder> {
+public class UploadingListAdapter extends RecyclerView.Adapter<UploadingListAdapter.UploadingListItemHolder> implements View.OnClickListener {
 
     private static final int VIEW_TYPE_UPLOADING = 0;
     private static final int VIEW_TYPE_UPLOADED = 1;
 
+    private final UploadFilePresenter.OnCancelUploadingFileListener mOnCancelFileListener;
+
     private List<FtpUploadItem> mUploadingFileList;
+
+    public UploadingListAdapter(UploadFilePresenter.OnCancelUploadingFileListener onCancelUploadingFileListener) {
+        this.mOnCancelFileListener = onCancelUploadingFileListener;
+    }
 
     @Override
     public UploadingListItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,14 +44,16 @@ public class UploadingListAdapter extends RecyclerView.Adapter<UploadingListAdap
 
         switch (getItemViewType(position)) {
             case VIEW_TYPE_UPLOADED:
-                holder.mFileUploadProgress.setVisibility(View.GONE);
-                holder.mFileUploadCancelBtn.setVisibility(View.GONE);
+                holder.mFileUploadProgress.setVisibility(View.INVISIBLE);
+                holder.mFileUploadCancelBtn.setVisibility(View.INVISIBLE);
                 break;
 
             case VIEW_TYPE_UPLOADING:
                 holder.mFileUploadProgress.setVisibility(View.VISIBLE);
-                holder.mFileUploadCancelBtn.setVisibility(View.VISIBLE);
                 holder.mFileUploadProgress.setProgress((int) (ftpUploadItem.getUploadedSize() * 100 / ftpUploadItem.getTotalSize()));
+                holder.mFileUploadCancelBtn.setTag(position);
+                holder.mFileUploadCancelBtn.setVisibility(View.VISIBLE);
+                holder.mFileUploadCancelBtn.setOnClickListener(this);
                 break;
         }
     }
@@ -63,9 +72,20 @@ public class UploadingListAdapter extends RecyclerView.Adapter<UploadingListAdap
         return mUploadingFileList;
     }
 
+    public FtpUploadItem getItemAtPos(int position) {
+        return mUploadingFileList.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return mUploadingFileList == null ? 0 : mUploadingFileList.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (null != mOnCancelFileListener) {
+            mOnCancelFileListener.onCancelFileAtPosition((Integer) view.getTag());
+        }
     }
 
     public static class UploadingListItemHolder extends RecyclerView.ViewHolder {
