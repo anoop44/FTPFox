@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import co.cyware.ftpclient.R;
 import co.cyware.ftpclient.presenter.UploadFilePresenter;
@@ -22,6 +23,7 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
 
     //Views
     private RecyclerView mUploadingFileListRecycler;
+    private TextView mServerName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
         mUploadingFileListRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         findViewById(R.id.select_file_floating_action).setOnClickListener(this);
+
+        mServerName = (TextView) findViewById(R.id.ftp_server_name);
 
         mUploadFilePresenter = new UploadFilePresenter();
         mUploadFilePresenter.attachView(this);
@@ -59,7 +63,7 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
 
     @Override
     public void showServerName(String serverName) {
-
+        mServerName.setText(serverName);
     }
 
     @Override

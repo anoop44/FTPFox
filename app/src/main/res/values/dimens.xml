@@ -6,4 +6,5 @@
     <dimen name="card_view_list_item_content_padding">10dp</dimen>
     <dimen name="card_view_list_item_card_margin">5dp</dimen>
     <dimen name="ftp_file_name_text_size">16sp</dimen>
+    <dimen name="page_common_padding">5dp</dimen>
 </resources>
