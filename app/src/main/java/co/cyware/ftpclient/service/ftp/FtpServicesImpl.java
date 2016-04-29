@@ -28,6 +28,8 @@ public class FtpServicesImpl implements IFtpServices {
 
     private List<FtpUploadCallback> mFtpUploadCallbacks;
 
+    private String mServerName;
+
     public FtpServicesImpl() {
 
         mFtpClient = new FTPClient();
@@ -37,6 +39,8 @@ public class FtpServicesImpl implements IFtpServices {
     @Override
     public boolean connectToServer(String server, int port) {
         boolean isConnectionSuccess = false;
+
+        mServerName = server;
 
         try {
             mFtpClient.connect(server, port);
@@ -148,5 +152,8 @@ public class FtpServicesImpl implements IFtpServices {
         return mFtpFileQueue == null ? null : mFtpFileQueue.getUploadQueue();
     }
 
-
+    @Override
+    public String getServerName() {
+        return mServerName;
+    }
 }

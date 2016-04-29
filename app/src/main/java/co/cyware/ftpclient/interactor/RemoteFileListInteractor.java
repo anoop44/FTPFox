@@ -3,17 +3,19 @@ package co.cyware.ftpclient.interactor;
 import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.File;
+import java.util.List;
 
 import co.cyware.ftpclient.presenter.RemoteFileListPresenter;
 import co.cyware.ftpclient.service.async.runner.AsyncJob;
 import co.cyware.ftpclient.service.async.runner.CancellableAsyncRunner;
 import co.cyware.ftpclient.service.ftp.FtpUploadCallback;
+import co.cyware.ftpclient.service.ftp.FtpUploadItem;
 import co.cyware.ftpclient.utils.FileUtils;
 
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPresenter> {
+public class RemoteFileListInteractor extends FTPInteractor<RemoteFileListPresenter> {
 
     private static final String DOWNLOAD_FILE_PATH = "%s/%s";
 
@@ -45,14 +47,6 @@ public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPrese
         };
 
         mGetFilesAsyncJob = getServices().getAsyncJobServices().runAsyncJob(getRemoteFilesAsync);
-    }
-
-    public void registerCallback(FtpUploadCallback ftpUploadCallback) {
-        getServices().getFTPServices().registerFtpUploadCallback(ftpUploadCallback);
-    }
-
-    public void unregisterCallback(FtpUploadCallback ftpUploadCallback) {
-        getServices().getFTPServices().unregisterFtpUploadCallback(ftpUploadCallback);
     }
 
 
@@ -87,4 +81,18 @@ public class RemoteFileListInteractor extends BaseInteractor<RemoteFileListPrese
             mGetFilesAsyncJob.cancel();
         }
     }
+
+    public int getUploadingFileCount() {
+        int count = 0;
+        List<FtpUploadItem> uploadingFiles = getServices().getFTPServices().getUploadingQueue();
+        if (null != uploadingFiles && uploadingFiles.size() > 0) {
+            for (FtpUploadItem ftpUploadItem : uploadingFiles) {
+                if (!ftpUploadItem.isDownloaded()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
 }

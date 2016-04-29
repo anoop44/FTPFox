@@ -13,9 +13,11 @@ import co.cyware.ftpclient.view.RemoteFileListView;
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class RemoteFileListPresenter extends BasePresenter<RemoteFileListView> {
+public class RemoteFileListPresenter extends FTPPresenter<RemoteFileListView> {
 
     private static final String DOWNLOADING_FILE = "Downloading file";
+
+    private static final String UPLOADING_FILE_COUNT = "Uploading %d file(s)";
 
     private RemoteFileListInteractor mRemoteFileListInteracor = null;
 
@@ -87,11 +89,20 @@ public class RemoteFileListPresenter extends BasePresenter<RemoteFileListView> {
 
     private void updateProgressBar(long uploaded, long total) {
         getView().updateUpdateProgress((int) (uploaded * 100 / total));
+
+        int uploadingFileCount = mRemoteFileListInteracor.getUploadingFileCount();
+        if (uploadingFileCount == 0) {
+            getView().hideUploadingText();
+        } else {
+            getView().showUploadCount(String.format(UPLOADING_FILE_COUNT, uploadingFileCount));
+        }
     }
 
     public void onResume() {
 
         getView().showLoading();
+
+        getView().showServerName(mRemoteFileListInteracor.getServerName());
 
         mRemoteFileListInteracor.getRemoteFileList();
 

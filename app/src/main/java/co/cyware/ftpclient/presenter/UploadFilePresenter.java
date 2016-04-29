@@ -14,7 +14,7 @@ import co.cyware.ftpclient.view.UploadFileView;
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class UploadFilePresenter extends BasePresenter<UploadFileView> {
+public class UploadFilePresenter extends FTPPresenter<UploadFileView> {
 
     private static final String MIME_TYPE_ALL_FILES = "file/*";
     private static final int FILE_CHOOSER_REQUEST_CODE = 1001;

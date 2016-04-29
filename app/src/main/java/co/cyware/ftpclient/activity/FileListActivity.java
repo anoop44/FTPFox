@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import co.cyware.ftpclient.R;
 import co.cyware.ftpclient.presenter.RemoteFileListPresenter;
@@ -24,6 +25,8 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
     private RecyclerView mRemoteFileListRecycler;
     private FloatingActionButton mFileUplaodFloatingActionBtn;
     private ProgressBar mFileUploadProgressBar;
+    private TextView mServerName;
+    private TextView mUploadingFileCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
         mRemoteFileListRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         mFileUploadProgressBar = (ProgressBar) findViewById(R.id.ftp_file_upload_progress);
+        mUploadingFileCount = (TextView) findViewById(R.id.file_upload_list_count);
+        mServerName = (TextView) findViewById(R.id.ftp_server_name);
 
         mFileUplaodFloatingActionBtn = (FloatingActionButton) findViewById(R.id.upload_floating_btn);
         mFileUplaodFloatingActionBtn.setOnClickListener(this);
@@ -57,6 +62,32 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
                 mFileUploadProgressBar.setProgress(progress);
             }
         });
+    }
+
+    @Override
+    public void hideUploadingText() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mUploadingFileCount.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    public void showUploadCount(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mUploadingFileCount.setVisibility(View.VISIBLE);
+                mUploadingFileCount.setText(text);
+            }
+        });
+    }
+
+    @Override
+    public void showServerName(String serverName) {
+        mServerName.setText(serverName);
     }
 
     @Override

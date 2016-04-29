@@ -14,7 +14,7 @@ import co.cyware.ftpclient.service.ftp.FtpUploadItem;
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class UploadFileInteractor extends BaseInteractor<UploadFilePresenter> {
+public class UploadFileInteractor extends FTPInteractor<UploadFilePresenter> {
 
     public UploadFileInteractor(UploadFilePresenter presenter) {
         super(presenter);
@@ -26,14 +26,6 @@ public class UploadFileInteractor extends BaseInteractor<UploadFilePresenter> {
         getServices().getFTPServices().addToQueue(ftpUploadItem);
 
         getPresenter().updateList();
-    }
-
-    public void registerCallback(FtpUploadCallback ftpUploadCallback) {
-        getServices().getFTPServices().registerFtpUploadCallback(ftpUploadCallback);
-    }
-
-    public void unregisterCallback(FtpUploadCallback ftpUploadCallback) {
-        getServices().getFTPServices().unregisterFtpUploadCallback(ftpUploadCallback);
     }
 
     public List<FtpUploadItem> getUploadingList() {

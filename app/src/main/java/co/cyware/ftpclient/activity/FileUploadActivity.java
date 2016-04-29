@@ -58,6 +58,11 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
     }
 
     @Override
+    public void showServerName(String serverName) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.select_file_floating_action:

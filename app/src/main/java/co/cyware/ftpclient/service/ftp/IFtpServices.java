@@ -29,4 +29,6 @@ public interface IFtpServices {
     void removeFromQueue(FtpUploadItem ftpUploadItem);
 
     List<FtpUploadItem> getUploadingQueue();
+
+    String getServerName();
 }
