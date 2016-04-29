@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import co.cyware.ftpclient.view.UploadFileView;
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class FileUploadActivity extends BaseActivity implements UploadFileView {
+public class FileUploadActivity extends LogoutActivity implements UploadFileView {
 
     //Presenter
     private UploadFilePresenter mUploadFilePresenter;
@@ -57,6 +58,13 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
     }
 
     @Override
+    public void showBackArrow() {
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
     public void setUploadingListAdapter(RecyclerView.Adapter uploadingListAdapter) {
         mUploadingFileListRecycler.setAdapter(uploadingListAdapter);
     }
@@ -64,6 +72,21 @@ public class FileUploadActivity extends BaseActivity implements UploadFileView {
     @Override
     public void showServerName(String serverName) {
         mServerName.setText(serverName);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+
+            case R.id.signout:
+                mUploadFilePresenter.onSignOut();
+                break;
+        }
+
+        return true;
     }
 
     @Override

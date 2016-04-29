@@ -13,7 +13,7 @@ public class PersistenceImpl implements IPersistenceService {
 
     private static final String PREF_NAME = "FTP_FOX_SHARED_PREF";
 
-    public PersistenceImpl(Context context){
+    public PersistenceImpl(Context context) {
         mSharedPreference = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -27,5 +27,12 @@ public class PersistenceImpl implements IPersistenceService {
     @Override
     public String getString(String key) {
         return mSharedPreference.getString(key, null);
+    }
+
+    @Override
+    public void clearAll() {
+        SharedPreferences.Editor editor = mSharedPreference.edit();
+        editor.clear();
+        editor.commit();
     }
 }

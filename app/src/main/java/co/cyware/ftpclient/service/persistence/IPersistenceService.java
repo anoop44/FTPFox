@@ -10,4 +10,6 @@ public interface IPersistenceService{
     void saveString(String key, String value);
 
     String getString(String key);
+
+    void clearAll();
 }

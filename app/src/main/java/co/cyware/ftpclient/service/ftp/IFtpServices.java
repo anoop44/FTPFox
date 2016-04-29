@@ -31,4 +31,6 @@ public interface IFtpServices {
     List<FtpUploadItem> getUploadingQueue();
 
     String getServerName();
+
+    void signOut();
 }

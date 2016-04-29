@@ -8,4 +8,6 @@ import android.support.v7.widget.RecyclerView;
 public interface UploadFileView extends FTPView {
 
     void setUploadingListAdapter(RecyclerView.Adapter uploadingListAdapter);
+
+    void showBackArrow();
 }

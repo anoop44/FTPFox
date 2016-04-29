@@ -168,6 +168,20 @@ public class FtpFileQueue {
         }
     };
 
+    public void clearAll() {
+        if (mFtpUploadTask != null) {
+            mFtpUploadTask.cancel(true);
+        }
+
+        mFtpUploadTask = null;
+
+        mUploadList = null;
+
+        mCopyStreamListener = null;
+
+        mCompletionCallback = null;
+    }
+
     public interface FTPUploadTaskCompletionCallback {
 
         void onCompletion(FtpUploadItem ftpUploadItem);

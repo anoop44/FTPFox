@@ -38,6 +38,8 @@ public class UploadFilePresenter extends FTPPresenter<UploadFileView> {
 
         getView().setUploadingListAdapter(mUplaodingFileListAdapter);
 
+        getView().showBackArrow();
+
     }
 
     public void onResume() {

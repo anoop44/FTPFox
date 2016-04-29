@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,7 +17,7 @@ import co.cyware.ftpclient.view.RemoteFileListView;
 /**
  * Created by Anoop S S on 27/4/16.
  */
-public class FileListActivity extends BaseActivity implements RemoteFileListView {
+public class FileListActivity extends LogoutActivity implements RemoteFileListView {
 
     //Presenter
     private RemoteFileListPresenter mRemoteFileListPresenter;
@@ -102,6 +103,18 @@ public class FileListActivity extends BaseActivity implements RemoteFileListView
         super.onPause();
 
         mRemoteFileListPresenter.onPause();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.signout:
+                mRemoteFileListPresenter.onSignOut();
+                break;
+        }
+
+        return true;
     }
 
     @Override

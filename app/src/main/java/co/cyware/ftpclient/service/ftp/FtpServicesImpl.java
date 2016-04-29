@@ -143,4 +143,18 @@ public class FtpServicesImpl implements IFtpServices {
     public String getServerName() {
         return mServerName;
     }
+
+    @Override
+    public void signOut() {
+        if (null != mFtpFileQueue) {
+            mFtpFileQueue.clearAll();
+        }
+
+        try {
+            mFtpClient.logout();
+            mFtpClient.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
